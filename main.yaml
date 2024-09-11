@@ -1,0 +1,12 @@
+- name: Hyprland installation config
+  hosts: localhost
+  tasks:
+    - include_tasks: packages.yaml
+      tags:
+        - packages
+    - include_tasks: nvidia.yaml
+      tags:
+        - nvidia
+    - include_tasks: browser.yaml
+      tags:
+        - browser

@@ -1,0 +1,23 @@
+- name: Install necessary packages
+  tags:
+    - packages
+  vars:
+    tools:
+      - openssl
+      - hyprwayland-scanner-git
+      - aquamarine-git
+      - hyprland-git
+      - git
+      - flatpak
+  block:
+    - name: Install utilities on arch
+      when: ansible_distribution == "Archlinux"
+      become: yes
+      become_user: root
+      with_items:
+        - "{{ tools }}"
+      pacman:
+        name: "{{ item }}"
+        state: present
+    - name: Install yay
+

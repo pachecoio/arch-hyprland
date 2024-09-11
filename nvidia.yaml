@@ -1,0 +1,46 @@
+- name: Install nvidia support utils
+  tags:
+    - nvidia
+  vars:
+    tools:
+      - nvidia-dkms
+      - nvidia-utils
+      - lib32-nvidia-utils
+      - egl-wayland
+  block:
+    - name: Install nvidia utils
+      become: yes
+      become_user: root
+      with_items:
+        - "{{ tools }}"
+      pacman:
+        name: "{{ item }}"
+        state: present
+
+- name: Add DRM Kernel mode setting
+  tags:
+    - nvidia
+  become: yes
+  become_user: root
+  lineinfile:
+    path: /etc/mkinitcpio.conf
+    line: 'MODULES=(btrfs nvidia nvidia_modeset nvidia_uvm nvidia_drm)'
+    regexp: 'MODULES='
+
+- name: Create nvidia conf file
+  tags:
+    - nvidia
+  become: yes
+  become_user: root
+  block:
+    - name: Ensure nvidia.conf file exists
+      file:
+        path: /etc/modprobe.d/nvidia.conf
+        state: touch
+    - name: Add nvidia config to file
+      lineinfile:
+        path: /etc/modprobe.d/nvidia.conf
+        line: 'options nvidia_drm modeset=1 fbdev=1'
+    - name: Rebuild the initramfs
+      shell: mkinitcpio -P
+
