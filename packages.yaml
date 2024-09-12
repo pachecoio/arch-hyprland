@@ -11,6 +11,9 @@
       - flatpak
       - stow
       - kitty
+      - hyprpaper
+      - qt6-base
+      - gtk4
   block:
     - name: Install utilities on arch
       when: ansible_distribution == "Archlinux"
