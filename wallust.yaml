@@ -1,0 +1,22 @@
+- name: wallust
+  tags:
+    - wallust
+  block:
+    - name: Install wallust
+      block:
+      - name: Install wallust from aur
+        git:
+          repo: https://aur.archlinux.org/wallust-git.git
+          dest: /tmp/wallust
+      - name: makepkg wallust
+        shell: makepkg -si --noconfirm
+        args:
+          chdir: /tmp/wallust
+
+    - name: Ensure wallust conf dir exists
+      file:
+        path: ~/.config/wallust
+        state: directory
+
+    - name: Stow wallust conf
+      command: "stow -t ~/.config/wallust/ -d dotfiles wallust --adopt"

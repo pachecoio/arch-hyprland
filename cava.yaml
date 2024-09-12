@@ -1,0 +1,20 @@
+- name: cava
+  tags:
+    - cava
+  block:
+    - name: Install cava
+      block:
+      - name: Install cava from aur
+        git:
+          repo: https://aur.archlinux.org/cava.git
+          dest: /tmp/cava
+      - name: makepkg cava
+        shell: makepkg -si --noconfirm
+        args:
+          chdir: /tmp/cava
+    - name: Ensure cava directory exists
+      file:
+        path: ~/.config/cava
+        state: directory
+    - name: Stow cava conf
+      command: "stow -t ~/.config/cava/ -d dotfiles cava --adopt"
