@@ -16,3 +16,9 @@
     - include_tasks: hypr.yaml
       tags:
         - hypr
+    - include_tasks: wofi.yaml
+      tags:
+        - wofi
+    - include_tasks: dolphin.yaml
+      tags:
+        - dolphin

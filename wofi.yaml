@@ -1,0 +1,15 @@
+- name: Install wofi and configure it
+  tags: wofi
+  block:
+    - name: Install wofi
+      become: yes
+      become_user: root
+      pacman:
+        name: wofi
+        state: present
+    - name: Ensure wofi conf dir exists
+      file:
+        path: ~/.config/wofi
+        state: directory
+    - name: Stow wofi conf
+      command: "stow -t ~/.config/wofi/ -d dotfiles wofi --adopt"

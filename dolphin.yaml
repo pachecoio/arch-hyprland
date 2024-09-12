@@ -1,0 +1,9 @@
+- name: Install dolphin and configure it
+  tags: dolphin
+  block:
+    - name: Install dolphin
+      become: yes
+      become_user: root
+      pacman:
+        name: dolphin
+        state: present
