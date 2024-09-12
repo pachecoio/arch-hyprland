@@ -25,3 +25,6 @@
     - include_tasks: dolphin.yaml
       tags:
         - dolphin
+    - include_tasks: bluetooth.yaml
+      tags:
+        - bluetooth
