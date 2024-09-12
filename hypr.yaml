@@ -1,0 +1,12 @@
+- name: Configure Hyprland
+  tags:
+    - hypr
+  block:
+    - name: Create folder for hyprland conf if not exists
+      become: yes
+      become_user: root
+      file:
+        path: ~/.config/hypr
+        state: directory
+    - name: Stow hyprland conf
+      command: "stow -t ~/.config/hypr/ -d dotfiles hypr --adopt"

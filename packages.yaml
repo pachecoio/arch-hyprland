@@ -9,6 +9,8 @@
       - hyprland-git
       - git
       - flatpak
+      - stow
+      - kitty
   block:
     - name: Install utilities on arch
       when: ansible_distribution == "Archlinux"
@@ -20,4 +22,11 @@
         name: "{{ item }}"
         state: present
     - name: Install yay
+      git:
+        repo: https://aur.archlinux.org/yay.git
+        dest: /tmp/yay
+    - name: makepkg yay
+      shell: makepkg -si --noconfirm
+      args:
+        chdir: /tmp/yay
 

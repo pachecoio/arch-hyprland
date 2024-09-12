@@ -10,3 +10,9 @@
     - include_tasks: browser.yaml
       tags:
         - browser
+    - include_tasks: kitty.yaml
+      tags:
+        - kitty
+    - include_tasks: hypr.yaml
+      tags:
+        - hypr
