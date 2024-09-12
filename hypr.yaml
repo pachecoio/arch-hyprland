@@ -2,6 +2,18 @@
   tags:
     - hypr
   block:
+    - name: Install hyprpaper
+      become: yes
+      become_user: root
+      pacman:
+        name: hyprpaper
+        state: present
+    - name: Install GTK
+      become: yes
+      become_user: root
+      pacman:
+        name: gtk4
+        state: present
     - name: Create folder for hyprland conf if not exists
       become: yes
       become_user: root
