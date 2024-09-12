@@ -13,6 +13,9 @@
     - include_tasks: kitty.yaml
       tags:
         - kitty
+    - include_tasks: fonts.yaml
+      tags:
+        - fonts
     - include_tasks: hypr.yaml
       tags:
         - hypr
