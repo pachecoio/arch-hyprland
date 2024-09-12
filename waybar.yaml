@@ -1,0 +1,18 @@
+- name: Waybar installation config
+  tags:
+    - waybar
+  block:
+    - name: Installing waybar
+      become: true
+      become_user: root
+      pacman:
+        name: waybar
+        state: present
+        update_cache: yes
+    - name: Ensure waybar config directory exists
+      file:
+        path: ~/.config/waybar
+        state: directory
+        mode: 0755
+    - name: stow waybar config
+      command: "stow -t ~/.config/waybar/ -d dotfiles waybar --adopt"

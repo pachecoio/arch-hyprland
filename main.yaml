@@ -28,3 +28,6 @@
     - include_tasks: bluetooth.yaml
       tags:
         - bluetooth
+    - include_tasks: waybar.yaml
+      tags:
+        - waybar
