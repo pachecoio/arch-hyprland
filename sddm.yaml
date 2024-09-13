@@ -27,7 +27,19 @@
       become: yes
       become_user: root
       command: "stow -t /etc -d dotfiles sddm"
-    - name: Stow sddm themes
+    - name: Copy sddm themes to /usr/share/sddm/themes
       become: yes
       become_user: root
-      command: "stow -t /usr/share/sddm/themes -d dotfiles sddm-themes --adopt"
+      vars:
+        - themes:
+          - sddm-sugar-dark
+      block:
+        - name: "Copy {{ item }} to /usr/share/sddm/themes"
+          become: yes
+          become_user: root
+          with_items: "{{ themes }}"
+          copy:
+            src: "./dotfiles/sddm-themes/{{ item }}"
+            dest: "/usr/share/sddm/themes/"
+            remote_src: yes
+            mode: 0755
