@@ -5,7 +5,10 @@
     - packages:
       - sddm
       - sddm-kcm
+      - qt5
       - qt5-declarative
+      - qt5-quickcontrols2
+      - qt5-svg
   block:
     - name: Install packages for sddm
       become: yes
@@ -20,12 +23,11 @@
         name: sddm
         enabled: yes
         state: started
-    # sudo update-alternatives --set default-displaymanager /usr/lib/X11/displaymanagers/sddm
-    - name: Set default display manager
-      become: yes
-      become_user: root
-      command: update-alternatives --set default-displaymanager /usr/lib/X11/displaymanagers/sddm
     - name: stow sddm config
       become: yes
       become_user: root
-      command: "stow -t /etc/ -d dotfiles sddm --adopt"
+      command: "stow -t /etc -d dotfiles sddm"
+    - name: Stow sddm themes
+      become: yes
+      become_user: root
+      command: "stow -t /usr/share/sddm/themes -d dotfiles sddm-themes --adopt"
