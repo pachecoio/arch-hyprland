@@ -1,0 +1,17 @@
+- name: Install and configure GDM
+  tags:
+    - gdm
+  block:
+    - name: Install GDM
+      become: yes
+      become_user: root
+      pacman:
+        name: gdm
+        state: present
+    - name: Enable GDM
+      systemd:
+        name: gdm
+        enabled: yes
+        state: started
+    - name: Enable GDM autologin
+      command: gdmflexiserver --start

@@ -37,3 +37,6 @@
     - include_tasks: waybar.yaml
       tags:
         - waybar
+    - include_tasks: sddm.yaml
+      tags:
+        - sddm

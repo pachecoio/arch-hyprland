@@ -1,0 +1,31 @@
+- name: Install and configure sddm
+  tags:
+    - sddm
+  vars:
+    - packages:
+      - sddm
+      - sddm-kcm
+      - qt5-declarative
+  block:
+    - name: Install packages for sddm
+      become: yes
+      become_user: root
+      package:
+        name: "{{ packages }}"
+        state: present
+    - name: Enable sddm service
+      become: yes
+      become_user: root
+      systemd:
+        name: sddm
+        enabled: yes
+        state: started
+    # sudo update-alternatives --set default-displaymanager /usr/lib/X11/displaymanagers/sddm
+    - name: Set default display manager
+      become: yes
+      become_user: root
+      command: update-alternatives --set default-displaymanager /usr/lib/X11/displaymanagers/sddm
+    - name: stow sddm config
+      become: yes
+      become_user: root
+      command: "stow -t /etc/ -d dotfiles sddm --adopt"

@@ -10,3 +10,12 @@
         state: directory
     - name: Stow hyprland conf
       command: "stow -t ~/.config/hypr/ -d dotfiles hypr --adopt"
+    - name: Configure hyprland init
+      block:
+        - name: Export hyprland init to path
+          become: yes
+          become_user: root
+          copy:
+            src: ./dotfiles/hyprland-init/init.sh
+            dest: /usr/bin/hypr
+            mode: 0755
